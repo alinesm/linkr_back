@@ -26,7 +26,14 @@ export async function signIn(req, res) {
             const token = uuid();
             await deleteSession(user);
             await insertSession(token,user);
-            return res.status(200).send({token});
+            return res.status(200).send({
+                token,
+                user:{
+                    id:user.rows[0].id,
+                    image_url:user.rows[0].image_url,
+                    user_name:user.rows[0].user_name
+                }
+            });
         } else {
             return res.sendStatus(401);
         }
