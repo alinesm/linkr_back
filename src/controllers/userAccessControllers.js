@@ -1,7 +1,7 @@
 import db from '../databases/db.js'
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import { findUser, insertUser } from '../repositories/userAccessRepository.js';
+import { deleteSession, findUser, findUserByEmail, insertSession, insertUser } from '../repositories/userAccessRepository.js';
 
 export async function signUp(req,res){
     try{
@@ -16,4 +16,21 @@ export async function signUp(req,res){
     }catch(err){
         return res.status(500).send(err.message)
     }
+}
+
+export async function signIn(req, res) {
+    try {
+        const {email, password} = req.body;
+        const user = await findUserByEmail(email);
+        if ((user.rows.length !== 0) && bcrypt.compareSync(password, user.rows[0].password)) {
+            const token = uuid();
+            await deleteSession(user);
+            await insertSession(token,user);
+            res.status(200).send({token});
+        } else {
+            return res.sendStatus(401);
+        }
+    } catch (err) {
+        res.status(500).send(err.message);
+    };
 }
