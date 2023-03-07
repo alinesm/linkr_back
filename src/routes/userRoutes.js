@@ -1,9 +1,12 @@
 import {Router} from 'express'
-import { getUserPosts } from "../controllers/userControllers.js";
+import { getAllUsers, getUserPosts } from "../controllers/userControllers.js";
+
 
 const userRoutes = Router()
 
-userRoutes.get("/users/:id", getUserPosts)
 
+userRoutes.get("/users", getAllUsers)
+
+userRoutes.get("/users/:id", getUserPosts)
 export default userRoutes
 

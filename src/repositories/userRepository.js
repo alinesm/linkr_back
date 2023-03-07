@@ -1,7 +1,7 @@
 import db from '../databases/db.js'
 
-export async function getAllusers() {
-    return db.query(`SELECT user_name FROM users`)
+export async function getUsers() {
+    return db.query(`SELECT id, user_name,image_url  FROM users`)
 }
 
 export async function getPosts(id) {

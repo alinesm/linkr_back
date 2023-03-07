@@ -1,5 +1,16 @@
-import db from '../databases/db.js'
-import { getPosts } from '../repositories/userRepository.js'
+
+import { getPosts, getUsers } from '../repositories/userRepository.js'
+
+export async function getAllUsers(req, res) {
+    try {
+        const users = await getUsers()
+
+        return res.send(users.rows)
+    } catch (error) {
+        
+    }
+
+}
 
 export async function getUserPosts(req, res) {
     const {id} = req.params
