@@ -22,6 +22,14 @@ export async function insertUser(email, user_name, image_url, hashPassword) {
     `, [email, user_name, image_url, hashPassword]);
 }
 
+export async function insertSession(token,user){
+    return db.query(`
+        INSERT INTO sessions 
+        (token, user_id, created_at) 
+        VALUES ($1, $2,NOW())
+    `,[token,user.rows[0].id]);
+}
+
 export async function deleteSession(user){
     return db.query(`
         DELETE FROM sessions 
@@ -29,10 +37,16 @@ export async function deleteSession(user){
     `,[user.rows[0].id]);
 }
 
-export async function insertSession(token,user){
+export async function findSessionByToken(token){
     return db.query(`
-        INSERT INTO sessions 
-        (token, user_id, created_at) 
-        VALUES ($1, $2,NOW())
-    `,[token,user.rows[0].id]);
+        SELECT * FROM sessions
+        WHERE token = $1
+    `,[token])
+}
+
+export async function deleteSessionByToken(token){
+    return db.query(`
+        DELETE FROM sessions 
+        WHERE token = $1
+    `,[token]);
 }
