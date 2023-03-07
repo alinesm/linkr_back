@@ -37,13 +37,6 @@ export async function deleteSession(user){
     `,[user.rows[0].id]);
 }
 
-export async function findSessionByToken(token){
-    return db.query(`
-        SELECT * FROM sessions
-        WHERE token = $1
-    `,[token])
-}
-
 export async function deleteSessionByToken(token){
     return db.query(`
         DELETE FROM sessions 

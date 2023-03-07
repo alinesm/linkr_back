@@ -1,7 +1,7 @@
 import db from '../databases/db.js'
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
-import { deleteSession, deleteSessionByToken, findSessionByToken, findUser, findUserByEmail, insertSession, insertUser } from '../repositories/userAccessRepository.js';
+import { deleteSession, deleteSessionByToken, findUser, findUserByEmail, insertSession, insertUser } from '../repositories/userAccessRepository.js';
 
 export async function signUp(req,res){
     try{
@@ -42,12 +42,8 @@ export async function logOut(req,res){
         if(!token){
             return res.sendStatus(401)
         }
-        const session = await findSessionByToken(token)
-        if(session.rows.length === 0){
-            return res.sendStatus(404)
-        }
         await deleteSessionByToken(token);
-        return res.sendStatus(202)
+        return res.sendStatus(204)
     }catch(err){
         return res.status(500).send(err.message)
     }
