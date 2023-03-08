@@ -22,7 +22,7 @@ export async function signIn(req, res) {
     try {
         const {email, password} = req.body;
         const user = await findUserByEmail(email);
-        console.log(bcrypt.compareSync(password, user.rows[0].password))
+        
         if ((user.rows.length !== 0) && bcrypt.compareSync(password, user.rows[0].password)) {
             const token = uuid();
             await deleteSession(user);
