@@ -8,5 +8,6 @@ const userRoutes = Router()
 userRoutes.get("/users", getAllUsers)
 
 userRoutes.get("/users/:id", getUserPosts)
+
 export default userRoutes
 
