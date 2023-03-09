@@ -1,12 +1,16 @@
 import { getPost, likePostById } from "../repositories/postsRepository.js"
+import urlMetadata from "url-metadata"
 
 
 export async function getPostById(req, res) {
 
     const { id } = req.params
 
+    
     try {
         const getPosts = await getPost(id)
+        
+        
         return res.send(getPosts.rows)
     } catch (error) {
         console.log(error.message)
