@@ -6,6 +6,6 @@ const userAccessRouter = Router()
 
 userAccessRouter.post("/sign-up", validateSchema(SignUpSchema), signUp) 
 userAccessRouter.post("/sign-in",validateSchema(SignInSchema), signIn)
-userAccessRouter.delete("/logout", logOut)
+userAccessRouter.delete("/logout/:token", logOut)
 
 export default userAccessRouter
