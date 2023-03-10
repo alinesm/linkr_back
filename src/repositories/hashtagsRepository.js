@@ -25,13 +25,15 @@ export function hashtagsByPost(id) {
 
 export function listPostsByhashtag(hashtag) {
   return connection.query(
-    `SELECT posts.id as postId, hashtags.text 
+    `SELECT users.image_url , users.user_name , posts.id as post_id, posts.description, hashtags.text
     FROM posts
+    join users 
+    on users.id = posts.user_id
     JOIN hashtag_posts hp 
     on posts.id = hp.post_id 
     join hashtags
     on hp.hashtag_id = hashtags.id
-    where hashtags.text= $1
+    WHERE hashtags.text = $1
     `,
     [hashtag]
   );
