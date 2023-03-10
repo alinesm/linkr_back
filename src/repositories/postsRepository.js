@@ -40,3 +40,7 @@ export async function deletePostQuery(postId){
 export async function verifyPostOwner(userId, postId){
     return await db.query(`SELECT * FROM posts WHERE id = $1 AND user_id = $2`, [postId, userId]);
 }
+
+export async function updatePost(postId, link, description){
+    return await db.query(`UPDATE posts SET link = $1, description = $2 WHERE id = $3`, [link, description, postId]);
+}

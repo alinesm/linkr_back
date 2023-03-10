@@ -1,4 +1,4 @@
-import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner} from "../repositories/postsRepository.js"
+import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner, updatePost} from "../repositories/postsRepository.js"
 import urlMetadata from "url-metadata"
 import { hashtagsByPost } from "../repositories/hashtagsRepository.js"
 
@@ -58,7 +58,7 @@ export async function getAllPosts(req, res) {
 
     try {
         const postsList = await getPostsList();
-        if(!postsList) return res.status(404).send("No posts found");
+        if (!postsList) return res.status(404).send("No posts found");
 
         return res.status(200).send(postsList.rows);
 
@@ -70,10 +70,10 @@ export async function getAllPosts(req, res) {
 
 export async function newPost(req, res) {
     // const { userId } = res.locals;
-    const { description, link, userId} = req.body;
+    const { description, link, userId } = req.body;
 
     try {
-        if(userId && description && link){
+        if (userId && description && link) {
             console.log(userId, description, link);
             console.log(res.locals);
             await publishNewPost(userId, description, link);
@@ -90,14 +90,14 @@ export async function newPost(req, res) {
 export async function deletePost(req, res) {
     const id = req.params.id;
     const userId = res.locals.userId;
-    
+
     try {
         //verifica se o post é do usuario
         console.log(userId);
         const usersPost = await verifyPostOwner(userId, id);
-        if(usersPost.rowCount === 0) return res.status(401).send("Unauthorized");
+        if (usersPost.rowCount === 0) return res.status(401).send("Unauthorized");
         const post = await deletePostQuery(id);
-        if(post === false) return res.status(404).send("Post not found");
+        if (post === false) return res.status(404).send("Post not found");
         return res.status(200).send("Post deleted");
     } catch (error) {
         res.status(500).send(error.message)
@@ -105,5 +105,19 @@ export async function deletePost(req, res) {
 }
 
 export async function editPost(req, res) {
-    
+
+    const { link, description, userId } = req.body
+    const { id } = req.params
+
+    try {
+        const post = await verifyPostOwner(userId, id);
+        if (post.rowCount === 0) return res.status(401).send("Unauthorized");
+        await updatePost(id, link, description);
+
+        res.status(204).send('Post up to date');
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+
 }
