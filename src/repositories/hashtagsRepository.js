@@ -14,7 +14,7 @@ export function trending() {
 
 export function hashtagsByPost(id) {
   return connection.query(
-    `select hashtags.text 
+    `select hashtags.text, hashtag_posts.post_id as post_id 
     from hashtag_posts 
     join hashtags 
     on hashtag_posts.hashtag_id = hashtags.id 
