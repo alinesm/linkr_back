@@ -4,6 +4,14 @@ export function getPost(id) {
     return db.query(`SELECT likes.post_id, users.user_name FROM likes JOIN users on users.id = likes.user_id WHERE post_id = $1`, [id])
 }
 
+export function getPostHashtags(id) {
+    return db.query(`SELECT hashtags.text, posts.id FROM hashtag_posts 
+    JOIN posts ON posts.id = hashtag_posts.post_id 
+    JOIN hashtags ON hashtags.id = hashtag_posts.hashtag_id
+    WHERE post_id = $1`,[id])
+
+}
+
 export async function likePostById(userId, postId) {
 
     const isLiked = await db.query(`SELECT * FROM likes where post_id= $1 AND user_id = $2`, [postId, userId])
