@@ -16,8 +16,8 @@ import {
 const router = Router();
 
 router.get("/hashtag/trending", getTrending);
-router.get("/hashtag/:idPost", listHashtagsByPost);
 router.get("/hashtag/:hashtag", showPostsByHashtag);
+router.get("/hashtag/posts/:idPost", listHashtagsByPost);
 
 // Como usuário logado, quero ver a caixa de lista de hashtags em trending
 // Ao clicar em uma hashtag, o usuário deve ser redirecionado para a rota /hashtag/:hashtag
