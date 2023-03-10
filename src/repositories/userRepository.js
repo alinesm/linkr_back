@@ -6,7 +6,7 @@ export async function getUsers() {
 
 export async function getPosts(id) {
 
-    return await  db.query(`SELECT users.*, json_agg(posts) AS posts
+    return await  db.query(`SELECT users.id, users.image_url, users.user_name , json_agg(posts) AS posts
         FROM users 
         JOIN posts  ON users.id = posts.user_id
         WHERE users.id = $1

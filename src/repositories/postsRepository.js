@@ -24,7 +24,7 @@ export async function likePostById(userId, postId) {
 }
 
 export async function getPostsList(){
-    return await db.query(`SELECT * FROM posts ORDER BY $1 DESC`, ["id"]);
+    return await db.query(`SELECT posts.*, users.id AS user_id, users.image_url, users.user_name FROM posts JOIN users ON users.id = posts.user_id ORDER BY $1 DESC`, ["id"]);
 }
 
 export async function publishNewPost(userId, description, link) {

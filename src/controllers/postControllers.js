@@ -59,6 +59,19 @@ export async function getAllPosts(req, res) {
     try {
         const postsList = await getPostsList();
         if(!postsList) return res.status(404).send("No posts found");
+        for(let i = 0; i < postsList.rows.length; i++) {
+            const meta = await urlMetadata(postsList.rows[i].link)
+
+            const hashtags = await getPostHashtags(postsList.rows[i].id)
+
+            console.log(hashtags.rows)
+            
+            postsList.rows[i].title = meta.title,
+            postsList.rows[i].image = meta.image,
+            postsList.rows[i].postDescription = meta.description,
+            postsList.rows[i].hashtags = hashtags.rows
+        }
+        console.log(postsList.rows)
 
         return res.status(200).send(postsList.rows);
 
