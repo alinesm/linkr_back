@@ -1,7 +1,6 @@
-import { getPost, getPostHashtags, likePostById } from "../repositories/postsRepository.js"
+import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner} from "../repositories/postsRepository.js"
 import urlMetadata from "url-metadata"
 import { hashtagsByPost } from "../repositories/hashtagsRepository.js"
-
 
 export async function getPostById(req, res) {
 
@@ -53,4 +52,58 @@ export async function getHashtags(req, res) {
 
     }
 
+}
+
+export async function getAllPosts(req, res) {
+
+    try {
+        const postsList = await getPostsList();
+        if(!postsList) return res.status(404).send("No posts found");
+
+        return res.status(200).send(postsList.rows);
+
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send(error.message)
+    }
+}
+
+export async function newPost(req, res) {
+    // const { userId } = res.locals;
+    const { description, link, userId} = req.body;
+
+    try {
+        if(userId && description && link){
+            console.log(userId, description, link);
+            console.log(res.locals);
+            await publishNewPost(userId, description, link);
+            return res.sendStatus(200);
+        }
+        return res.status(400).send("Unable to publish");
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send(error.message)
+    }
+
+}
+
+export async function deletePost(req, res) {
+    const id = req.params.id;
+    const userId = res.locals.userId;
+    
+    try {
+        //verifica se o post é do usuario
+        console.log(userId);
+        const usersPost = await verifyPostOwner(userId, id);
+        if(usersPost.rowCount === 0) return res.status(401).send("Unauthorized");
+        const post = await deletePostQuery(id);
+        if(post === false) return res.status(404).send("Post not found");
+        return res.status(200).send("Post deleted");
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
+export async function editPost(req, res) {
+    
 }
