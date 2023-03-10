@@ -44,7 +44,7 @@ export async function getHashtags(req, res) {
 
     try {
         const hashtags = await getPostHashtags(id)
-        console.log(hashtags.rows)
+        
         return res.send(hashtags.rows)
     } catch (error) {
         console.log(error.message)
@@ -64,14 +64,14 @@ export async function getAllPosts(req, res) {
 
             const hashtags = await getPostHashtags(postsList.rows[i].id)
 
-            console.log(hashtags.rows)
+            
             
             postsList.rows[i].title = meta.title,
             postsList.rows[i].image = meta.image,
             postsList.rows[i].postDescription = meta.description,
             postsList.rows[i].hashtags = hashtags.rows
         }
-        console.log(postsList.rows)
+        
 
         return res.status(200).send(postsList.rows);
 
@@ -87,8 +87,7 @@ export async function newPost(req, res) {
 
     try {
         if(userId && description && link){
-            console.log(userId, description, link);
-            console.log(res.locals);
+           
             await publishNewPost(userId, description, link);
             return res.sendStatus(200);
         }
@@ -106,7 +105,7 @@ export async function deletePost(req, res) {
     
     try {
         //verifica se o post é do usuario
-        console.log(userId);
+       
         const usersPost = await verifyPostOwner(userId, id);
         if(usersPost.rowCount === 0) return res.status(401).send("Unauthorized");
         const post = await deletePostQuery(id);

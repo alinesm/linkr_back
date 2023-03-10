@@ -27,11 +27,11 @@ export async function listHashtagsByPost(req, res) {
 
 export async function showPostsByHashtag(req, res) {
   const { hashtag } = req.params;
-  console.log(hashtag);
+  
 
   try {
     const result = await listPostsByhashtag(hashtag);
-    console.log(result.rows);
+   
     return res.send(result.rows);
   } catch (error) {
     console.log(error);

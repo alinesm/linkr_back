@@ -17,6 +17,7 @@ export async function getAllUsers(req, res) {
 
 export async function getUserPosts(req, res) {
     const { id } = req.params
+    console.log(id)
     try {
 
         const posts = await getPosts(id)

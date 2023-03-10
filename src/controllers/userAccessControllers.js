@@ -46,7 +46,7 @@ export async function signIn(req, res) {
 export async function logOut(req,res){
     try{
         const token = req.params.token;
-        console.log(token)
+        
         if(!token){
             return res.sendStatus(401)
         }
