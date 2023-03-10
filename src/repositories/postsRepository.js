@@ -22,3 +22,21 @@ export async function likePostById(userId, postId) {
 
     return await db.query(`INSERT INTO likes (post_id, user_id) VALUES ($1, $2)`, [postId, userId])
 }
+
+export async function getPostsList(){
+    return await db.query(`SELECT * FROM posts ORDER BY $1 DESC`, ["id"]);
+}
+
+export async function publishNewPost(userId, description, link) {
+    return db.query(`INSERT INTO posts (user_id, description, link) VALUES ($1, $2, $3)`, [userId, description, link]);    
+}
+
+export async function deletePostQuery(postId){
+    let existPost = await db.query(`SELECT * FROM posts WHERE id = $1`, [postId]);
+    if(existPost.rowCount === 0) return false;
+    return await db.query(`DELETE FROM posts WHERE id = $1`, [postId]);
+}
+
+export async function verifyPostOwner(userId, postId){
+    return await db.query(`SELECT * FROM posts WHERE id = $1 AND user_id = $2`, [postId, userId]);
+}
