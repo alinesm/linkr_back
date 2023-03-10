@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
--- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
+-- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -284,78 +284,99 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: hashtag_posts; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.hashtag_posts VALUES (1, 3, 1);
+INSERT INTO public.hashtag_posts VALUES (2, 3, 2);
 
 
 --
 -- Data for Name: hashtags; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.hashtags VALUES (1, 'mec');
+INSERT INTO public.hashtags VALUES (2, 'top');
+INSERT INTO public.hashtags VALUES (3, 'fresh');
 
 
 --
 -- Data for Name: likes; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.likes VALUES (2, 3, 29);
+INSERT INTO public.likes VALUES (3, 5, 29);
+INSERT INTO public.likes VALUES (4, 3, 30);
+INSERT INTO public.likes VALUES (5, 3, 30);
+INSERT INTO public.likes VALUES (23, 9, 29);
+INSERT INTO public.likes VALUES (25, 7, 28);
+INSERT INTO public.likes VALUES (26, 9, 28);
+INSERT INTO public.likes VALUES (30, 10, 28);
+INSERT INTO public.likes VALUES (31, 4, 28);
+INSERT INTO public.likes VALUES (32, 6, 28);
+INSERT INTO public.likes VALUES (33, 8, 28);
+INSERT INTO public.likes VALUES (34, 3, 28);
 
 
 --
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.posts VALUES (2, 1, 'iasuhye', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-07');
+INSERT INTO public.posts VALUES (1, 1, 'iasuhye', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-07');
+INSERT INTO public.posts VALUES (3, 28, 'iasuhye', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-07');
+INSERT INTO public.posts VALUES (4, 28, 'iasuhye', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-07');
+INSERT INTO public.posts VALUES (5, 29, 'iasuhye', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-07');
+INSERT INTO public.posts VALUES (6, 28, 'poiasdd asidoa ijsd', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-09');
+INSERT INTO public.posts VALUES (7, 28, 'poiasdd asidoa ijsd', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-09');
+INSERT INTO public.posts VALUES (8, 28, 'poiasdd asidoa ijsd', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-09');
+INSERT INTO public.posts VALUES (9, 28, 'poiasdd asidoa ijsd', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-09');
+INSERT INTO public.posts VALUES (10, 28, 'Link tpo', 'https://www.estadao.com.br/politica/veja-o-que-diz-a-lei-e-quais-crimes-bolsonaro-pode-ter-cometido-no-caso-das-joias-da-arabia-saudita/', '2023-03-09');
 
 
 --
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (10, 14, 'ec24c640-a65c-40b2-b0c8-033d1caea8c0', '17:22:34.908974');
+INSERT INTO public.sessions VALUES (35, 28, '858d24ca-76ac-4c73-9fcb-e942d3475401', '17:13:42.477563');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (13, 'user10@gmail.com', 'user10', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$kceUGGFwmYYa4E4LA1PuV.jwYEnWjuNqTSWdU8DDIGtnQhoVGspIu', '2023-03-07');
-INSERT INTO public.users VALUES (14, 'user1@gmail.com', 'user1', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$0Z0QNHuD/IV2pQWkTQjDLekGdQ0gg7NICRlB71JTEgqVITJ46b3Te', '2023-03-07');
-INSERT INTO public.users VALUES (16, 'user2@gmail.com', 'user2', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$umug2C.did2Ld3P6LZsO4uFCWIzeyFrWEPrPDbvb.iNNzi4EeVfj6', '2023-03-07');
-INSERT INTO public.users VALUES (17, 'user3@gmail.com', 'user3', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$zjEweR/iPCeL1dcZJWjbbObtYZJaVjQDL9w10T4HQr9QsmF5xs7de', '2023-03-07');
-INSERT INTO public.users VALUES (18, 'user4@gmail.com', 'user4', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$N2Igrihtw3Ga5XxKb/SKEewvhVijIrwOd2HFYET7FxyTFgyHkQolW', '2023-03-07');
-INSERT INTO public.users VALUES (19, 'user5@gmail.com', 'user5', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$PEcXnv1ibaVKWbwe.VurkuBNqIXyZvbOQmdqyNQhAh6PRd2f15vTC', '2023-03-07');
-INSERT INTO public.users VALUES (20, 'user6@gmail.com', 'user6', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$ARYmm84S9UTS8nk7EAb0g.nfaYKkLBE5JsX76XFHmrRFpK8LEI3ri', '2023-03-07');
-INSERT INTO public.users VALUES (21, 'user7@gmail.com', 'user7', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$ZrKeHpW/b25d.fNYbXCAM.kDqFK1qxf8grrwkjLFmduKxOrw7OjoW', '2023-03-07');
-INSERT INTO public.users VALUES (22, 'user8@gmail.com', 'user8', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$kgqw9B7RUJ/wM3EWGg7DKOo4i1vPbNDn2q/LeEVme.nLrtSCuaE5a', '2023-03-07');
-INSERT INTO public.users VALUES (23, 'user9@gmail.com', 'user9', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$bx8afs2h6vW1PGqZEZw8hOcoDTKNsin6.TPSH6c6LzAO7r8ClvWl.', '2023-03-07');
-INSERT INTO public.users VALUES (24, 'user11@gmail.com', 'user11', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$DF1YRH6rLMruUivwzZzRa.0eXOuXRy6gnONVIRoKFNSzM.UjXd6Pe', '2023-03-07');
-INSERT INTO public.users VALUES (25, 'user12@gmail.com', 'user12', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$Nq.0cIgksBgkz6/DkSkaneOWMAFCwbR.utjg2/tNq8gmX5ebSDsKa', '2023-03-07');
-INSERT INTO public.users VALUES (27, 'user13@gmail.com', 'user13', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$RDJ2h4yxmKYsFeooeUMV7OtehNoC99mdp86c9DCxapPhVninOT95a', '2023-03-07');
+INSERT INTO public.users VALUES (1, 'danniel@gmail.com', 'danniel', 'aiosje', '123456', '2023-03-07');
+INSERT INTO public.users VALUES (2, 'danniel2@gmail.com', 'danniel2', 'aiosje', '123456', '2023-03-07');
+INSERT INTO public.users VALUES (3, 'danniel3@gmail.com', 'danniel3', 'aiosje', '123456', '2023-03-07');
+INSERT INTO public.users VALUES (28, 'danniel4@gmail.com', 'danniel4', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$qafgCWAB7hYlFz2Qjkobz.3nW4GddcyaawppBy59YGfaCg97iZLti', '2023-03-07');
+INSERT INTO public.users VALUES (29, 'danniel5@gmail.com', 'danniel5', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$8qee1g9JKI3pchyAh517a./5C170txf/614AgrPDRY7CnC4v4lW12', '2023-03-07');
+INSERT INTO public.users VALUES (30, 'danniel6@gmail.com', 'danniel6', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$TVwz1PtJ9/HWehVJGA.kq.5Tu1vgl.cBeTaGr2vQBeHMoIg9Rw2gq', '2023-03-07');
+INSERT INTO public.users VALUES (31, 'danniel7@gmail.com', 'danniel7', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$EzDVmzrKhhR0Qc3D0p.equnn6JaytH9HJvreB1wWwQParAFI49hne', '2023-03-07');
 
 
 --
 -- Name: hashtag_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.hashtag_posts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.hashtag_posts_id_seq', 2, true);
 
 
 --
 -- Name: hashtags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.hashtags_id_seq', 1, false);
+SELECT pg_catalog.setval('public.hashtags_id_seq', 3, true);
 
 
 --
 -- Name: likes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.likes_id_seq', 1, false);
+SELECT pg_catalog.setval('public.likes_id_seq', 34, true);
 
 
 --
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.posts_id_seq', 10, true);
 
 
 --
@@ -369,14 +390,14 @@ SELECT pg_catalog.setval('public.posts_user_id_seq', 1, false);
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 10, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 35, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 27, true);
+SELECT pg_catalog.setval('public.users_id_seq', 31, true);
 
 
 --
