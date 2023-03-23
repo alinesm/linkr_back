@@ -34,3 +34,10 @@ export async function findUserById(id){
         WHERE id = $1
     `,[id])
 }
+
+export async function deleteFollow(followerId,followedId){
+    return db.query(`
+        DELETE FROM follows
+        WHERE follower = $1 AND followed = $2
+    `,[followerId,followedId])
+}
