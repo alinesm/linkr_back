@@ -14,5 +14,5 @@ app.use(express.json());
 
 app.use([userRoutes, postsRouter, userAccessRouter, hashtagsRoutes]);
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Servidor funfando na porta: ${port}`));

@@ -92,3 +92,21 @@ export async function unfollowUser(req,res){
         return res.status(500).send(error.message)
     }
 }
+
+export async function findFollowRelation(req,res){
+    try{
+        const { followerId, followedId } = req.body
+        const followerExists = await findUserById(followerId)
+        const followedExists = await findUserById(followedId)
+        if(followerExists.rows.length === 0 || followedExists.rows.length === 0){
+            return res.sendStatus(400)
+        }
+        const follow = await findFollow(followerId,followedId)
+        if(follow.rows.length === 0){
+            return res.status(202).send([])
+        }
+        return res.status(202).send(["exists"])
+    }catch(error){
+        return res.status(500).send(error.message)
+    }
+}
