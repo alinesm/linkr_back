@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
--- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
+-- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
+-- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,6 +19,38 @@ SET row_security = off;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: follows; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.follows (
+    id integer NOT NULL,
+    follower integer NOT NULL,
+    followed integer NOT NULL,
+    created_at date NOT NULL
+);
+
+
+--
+-- Name: follows_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.follows_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: follows_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.follows_id_seq OWNED BY public.follows.id;
+
 
 --
 -- Name: hashtag_posts; Type: TABLE; Schema: public; Owner: -
@@ -232,6 +264,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: follows id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.follows ALTER COLUMN id SET DEFAULT nextval('public.follows_id_seq'::regclass);
+
+
+--
 -- Name: hashtag_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -278,6 +317,12 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: follows; Type: TABLE DATA; Schema: public; Owner: -
+--
+
 
 
 --
@@ -335,7 +380,7 @@ INSERT INTO public.posts VALUES (10, 28, 'Link tpo', 'https://www.estadao.com.br
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (35, 28, '858d24ca-76ac-4c73-9fcb-e942d3475401', '17:13:42.477563');
+INSERT INTO public.sessions VALUES (36, 28, '9322fd1a-da85-4c9e-95a2-5c9634f5246a', '14:57:45.429279');
 
 
 --
@@ -349,6 +394,13 @@ INSERT INTO public.users VALUES (28, 'danniel4@gmail.com', 'danniel4', 'https://
 INSERT INTO public.users VALUES (29, 'danniel5@gmail.com', 'danniel5', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$8qee1g9JKI3pchyAh517a./5C170txf/614AgrPDRY7CnC4v4lW12', '2023-03-07');
 INSERT INTO public.users VALUES (30, 'danniel6@gmail.com', 'danniel6', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$TVwz1PtJ9/HWehVJGA.kq.5Tu1vgl.cBeTaGr2vQBeHMoIg9Rw2gq', '2023-03-07');
 INSERT INTO public.users VALUES (31, 'danniel7@gmail.com', 'danniel7', 'https://cdn.pixabay.com/photo/2023/01/11/18/26/bird-7712475_960_720.jpg', '$2b$10$EzDVmzrKhhR0Qc3D0p.equnn6JaytH9HJvreB1wWwQParAFI49hne', '2023-03-07');
+
+
+--
+-- Name: follows_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.follows_id_seq', 1, false);
 
 
 --
@@ -390,7 +442,7 @@ SELECT pg_catalog.setval('public.posts_user_id_seq', 1, false);
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 35, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 36, true);
 
 
 --
@@ -398,6 +450,14 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 35, true);
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 31, true);
+
+
+--
+-- Name: follows follows_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.follows
+    ADD CONSTRAINT follows_pkey PRIMARY KEY (id);
 
 
 --
@@ -486,6 +546,22 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_user_name_key UNIQUE (user_name);
+
+
+--
+-- Name: follows follows_followed_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.follows
+    ADD CONSTRAINT follows_followed_fkey FOREIGN KEY (followed) REFERENCES public.users(id);
+
+
+--
+-- Name: follows follows_follower_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.follows
+    ADD CONSTRAINT follows_follower_fkey FOREIGN KEY (follower) REFERENCES public.users(id);
 
 
 --
