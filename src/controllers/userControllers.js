@@ -1,7 +1,7 @@
 import urlMetadata from 'url-metadata'
 import { hashtagsByPost } from '../repositories/hashtagsRepository.js'
 import { getPostHashtags } from '../repositories/postsRepository.js'
-import { getPosts, getUsers } from '../repositories/userRepository.js'
+import { findFollow, getPosts, getUsers, insertFollow, findUserById } from '../repositories/userRepository.js'
 
 export async function getAllUsers(req, res) {
     try {
@@ -50,4 +50,25 @@ export async function getUserPosts(req, res) {
         return res.status(500).send(error.message)
     }
 
+}
+
+export async function followUser(req,res){
+    try{
+        const { followerId, followedId } = req.body
+        const followerExists = await findUserById(followerId)
+        const followedExists = await findUserById(followedId)
+        if(followerExists.rows.length === 0 || followedExists.rows.length === 0){
+            return res.sendStatus(400)
+        }
+        const follow = await findFollow(followerId,followedId)
+        if(follow.rows.length === 0){
+            await insertFollow(followerId,followedId)
+            return res.sendStatus(201)
+        }else{
+            return res.sendStatus(400)
+        }
+    }catch(error){
+        console.log(error)
+        return res.status(500).send(error.message)
+    }
 }

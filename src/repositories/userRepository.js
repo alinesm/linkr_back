@@ -12,3 +12,25 @@ export async function getPosts(id) {
         WHERE users.id = $1
         GROUP BY users.id;`, [id])
 }
+
+export async function insertFollow(followerId,followedId){
+    return db.query(`
+        INSERT INTO follows 
+        (follower,followed,created_at)
+        VALUES ($1,$2,NOW())
+    `,[followerId,followedId])
+}
+
+export async function findFollow(followerId,followedId){
+    return db.query(`
+        Select * FROM follows
+        Where follower = $1 AND followed = $2
+    `,[followerId,followedId])
+}
+
+export async function findUserById(id){
+    return db.query(`
+        SELECT * FROM users
+        WHERE id = $1
+    `,[id])
+}
