@@ -51,10 +51,6 @@ export async function comment(userId, postId,comment) {
     return await db.query(`INSERT INTO comments (user_id, post_id, comment) VALUES ($1, $2, $3)`, [userId, postId, comment])
 }
 
-export async function getPostsList(){
-    return await db.query(`SELECT posts.*, users.id AS user_id, users.image_url, users.user_name FROM posts JOIN users ON users.id = posts.user_id ORDER BY $1 DESC`, ["id"]);
-}
-
 export async function publishNewPost(userId, description, link) {
     return db.query(`INSERT INTO posts (user_id, description, link) VALUES ($1, $2, $3)`, [userId, description, link]);    
 }
