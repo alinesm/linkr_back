@@ -35,8 +35,16 @@ export async function likePostById(userId, postId) {
     return await db.query(`INSERT INTO likes (post_id, user_id) VALUES ($1, $2)`, [postId, userId])
 }
 
-export async function getPostsList(){
-    return await db.query(`SELECT posts.*, users.id AS user_id, users.image_url, users.user_name FROM posts JOIN users ON users.id = posts.user_id ORDER BY $1 DESC`, ["id"]);
+export async function getPostsList(id){
+    return await db.query(`
+        SELECT posts.*, users.id AS user_id, users.image_url, users.user_name,
+        follows.follower,follows.followed
+        FROM posts
+        JOIN users ON users.id = posts.user_id
+        JOIN follows ON follows.followed = posts.user_id
+        WHERE follows.follower = $1
+        ORDER BY id DESC;
+    `, [id]);
 }
 
 export async function publishNewPost(userId, description, link) {

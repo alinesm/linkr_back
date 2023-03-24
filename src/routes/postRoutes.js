@@ -4,7 +4,7 @@ import { userValidation } from "../middlewares/userValidation.js";
 
 const postsRouter = Router()
 
-postsRouter.get("/timeline", getAllPosts)
+postsRouter.get("/timeline/:id", getAllPosts)
 
 postsRouter.get("/comments/:id", getPostComments)
 

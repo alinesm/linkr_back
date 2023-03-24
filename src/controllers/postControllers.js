@@ -1,6 +1,7 @@
 import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner, getComments} from "../repositories/postsRepository.js"
 import urlMetadata from "url-metadata"
 import { hashtagsByPost } from "../repositories/hashtagsRepository.js"
+import { findFollower } from "../repositories/userRepository.js"
 
 export async function getPostById(req, res) {
 
@@ -57,7 +58,11 @@ export async function getHashtags(req, res) {
 export async function getAllPosts(req, res) {
 
     try {
-        const postsList = await getPostsList();
+        const hasFriends = await findFollower(req.params.id);
+        const postsList = await getPostsList(req.params.id);
+        if(hasFriends.rows.length===0){
+            return res.status(200).send({friends:false, posts:false})
+        }
        
         if(!postsList) return res.status(404).send("No posts found");
         for(let i = 0; i < postsList.rows.length; i++) {
@@ -78,7 +83,7 @@ export async function getAllPosts(req, res) {
         }
         
 
-        return res.status(200).send(postsList.rows);
+        return res.status(200).send({friends:true, posts:(postsList.rows.length===0?false:postsList.rows)});
 
     } catch (error) {
         console.log(error.message)
