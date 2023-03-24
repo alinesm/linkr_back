@@ -8,7 +8,7 @@ export function getPost(id) {
 }
 
 export function getComments(id) {
-    console.log(id)
+    
     return db.query(`SELECT users.id as user_id, users.image_url as user_avatar, users.user_name, comments.id as comment_id, comments.comment 
     FROM comments 
     JOIN users 

@@ -1,6 +1,6 @@
 import urlMetadata from 'url-metadata'
 import { hashtagsByPost } from '../repositories/hashtagsRepository.js'
-import { getPostHashtags } from '../repositories/postsRepository.js'
+import { getComments, getPostHashtags } from '../repositories/postsRepository.js'
 import { findFollow, getPosts, getUsers, insertFollow, findUserById, deleteFollow } from '../repositories/userRepository.js'
 
 export async function getAllUsers(req, res) {
@@ -17,10 +17,11 @@ export async function getAllUsers(req, res) {
 
 export async function getUserPosts(req, res) {
     const { id } = req.params
-    console.log(id)
+   
     try {
 
         const posts = await getPosts(id)
+        
 
 
 
@@ -34,11 +35,12 @@ export async function getUserPosts(req, res) {
            
 
             const meta = await urlMetadata(posts.rows[0].posts[i].link)
+            const comments = await getComments(posts.rows[0].posts[i].id)
             posts.rows[0].posts[i].title = meta.title,
                 posts.rows[0].posts[i].image = meta.image,
                 posts.rows[0].posts[i].postDescription = meta.description,
-                posts.rows[0].posts[i].hashtags = hashtags.rows
-
+                posts.rows[0].posts[i].hashtags = hashtags.rows,
+                posts.rows[0].posts[i].comments = comments.rows
 
         }
 

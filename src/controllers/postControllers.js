@@ -74,7 +74,7 @@ export async function getAllPosts(req, res) {
             postsList.rows[i].postDescription = meta.description,
             postsList.rows[i].hashtags = hashtags.rows
             postsList.rows[i].comments = comments.rows
-            postsList.rows[i].seeComment = false
+           
         }
         
 
