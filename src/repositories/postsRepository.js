@@ -1,7 +1,19 @@
 import db from '../databases/db.js'
 
 export function getPost(id) {
-    return db.query(`SELECT likes.post_id, users.user_name FROM likes JOIN users on users.id = likes.user_id WHERE post_id = $1`, [id])
+    return db.query(`SELECT likes.post_id, users.user_name 
+    FROM likes 
+    JOIN users on users.id = likes.user_id 
+    WHERE post_id = $1`, [id])
+}
+
+export function getComments(id) {
+    console.log(id)
+    return db.query(`SELECT users.id as user_id, users.image_url as user_avatar, users.user_name, comments.id as comment_id, comments.comment 
+    FROM comments 
+    JOIN users 
+    ON users.id = user_id 
+    WHERE post_id = $1`, [id])
 }
 
 export function getPostHashtags(id) {

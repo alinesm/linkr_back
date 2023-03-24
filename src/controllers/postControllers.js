@@ -1,4 +1,4 @@
-import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner} from "../repositories/postsRepository.js"
+import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner, getComments} from "../repositories/postsRepository.js"
 import urlMetadata from "url-metadata"
 import { hashtagsByPost } from "../repositories/hashtagsRepository.js"
 
@@ -58,11 +58,14 @@ export async function getAllPosts(req, res) {
 
     try {
         const postsList = await getPostsList();
+       
         if(!postsList) return res.status(404).send("No posts found");
         for(let i = 0; i < postsList.rows.length; i++) {
             const meta = await urlMetadata(postsList.rows[i].link)
+            
 
             const hashtags = await getPostHashtags(postsList.rows[i].id)
+            const comments = await getComments(postsList.rows[i].id)
 
             
             
@@ -70,6 +73,8 @@ export async function getAllPosts(req, res) {
             postsList.rows[i].image = meta.image,
             postsList.rows[i].postDescription = meta.description,
             postsList.rows[i].hashtags = hashtags.rows
+            postsList.rows[i].comments = comments.rows
+            postsList.rows[i].seeComment = false
         }
         
 
@@ -118,4 +123,16 @@ export async function deletePost(req, res) {
 
 export async function editPost(req, res) {
     
+}
+
+export async function getPostComments(req, res) {
+    const {id} = req.params
+    
+    try {
+        const comments = await getComments(id)
+      
+        return res.send(comments.rows)
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
 }
