@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deletePost, getHashtags, getPostById, likePost, newPost, getAllPosts, getPostComments } from "../controllers/postControllers.js";
+import { deletePost, getHashtags, getPostById, likePost, newPost, getAllPosts, getPostComments, CommentPost } from "../controllers/postControllers.js";
 import { userValidation } from "../middlewares/userValidation.js";
 
 const postsRouter = Router()
@@ -17,5 +17,7 @@ postsRouter.get("/posts/:id",getPostById)
 postsRouter.get("/postsHashtags/:id", getHashtags)
 
 postsRouter.post("/like/:postId", userValidation, likePost)
+
+postsRouter.post("/comments/:id", userValidation, CommentPost)
 
 export default postsRouter

@@ -9,7 +9,7 @@ export function getPost(id) {
 
 export function getComments(id) {
     
-    return db.query(`SELECT users.id as user_id, users.image_url as user_avatar, users.user_name, comments.id as comment_id, comments.comment 
+    return db.query(`SELECT users.id as user_id, users.image_url as user_avatar, users.user_name, comments.id as comment_id, comments.comment, comments.post_id as post_id 
     FROM comments 
     JOIN users 
     ON users.id = user_id 
@@ -33,6 +33,12 @@ export async function likePostById(userId, postId) {
     }
 
     return await db.query(`INSERT INTO likes (post_id, user_id) VALUES ($1, $2)`, [postId, userId])
+}
+
+export async function comment(userId, postId,comment) {
+
+    return await db.query(`INSERT INTO comments (user_id, post_id, comment) VALUES ($1, $2, $3)`, [userId, postId, comment])
+
 }
 
 export async function getPostsList(){

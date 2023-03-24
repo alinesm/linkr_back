@@ -1,4 +1,4 @@
-import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner, getComments} from "../repositories/postsRepository.js"
+import { getPost, getPostHashtags, getPostsList, likePostById, publishNewPost, deletePostQuery, verifyPostOwner, getComments, comment} from "../repositories/postsRepository.js"
 import urlMetadata from "url-metadata"
 import { hashtagsByPost } from "../repositories/hashtagsRepository.js"
 
@@ -35,6 +35,21 @@ export async function likePost(req, res) {
         console.log(error.message)
         return res.status(500).send(error.message)
 
+    }
+
+}
+
+export async function CommentPost(req, res) {
+    const {message} = req.body
+   
+    try {
+
+        await comment(message.user_id, message.post_id, message.comment)
+        return res.sendStatus(201)
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send(error.message)
     }
 
 }

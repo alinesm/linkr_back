@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
--- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.10.1)
+-- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,22 +21,22 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: follows; Type: TABLE; Schema: public; Owner: -
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.follows (
+CREATE TABLE public.comments (
     id integer NOT NULL,
-    follower integer NOT NULL,
-    followed integer NOT NULL,
-    created_at date NOT NULL
+    user_id integer NOT NULL,
+    post_id integer NOT NULL,
+    comment text NOT NULL
 );
 
 
 --
--- Name: follows_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.follows_id_seq
+CREATE SEQUENCE public.comments_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -46,10 +46,10 @@ CREATE SEQUENCE public.follows_id_seq
 
 
 --
--- Name: follows_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.follows_id_seq OWNED BY public.follows.id;
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -264,10 +264,10 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: follows id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.follows ALTER COLUMN id SET DEFAULT nextval('public.follows_id_seq'::regclass);
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
@@ -320,9 +320,17 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- Data for Name: follows; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.comments VALUES (1, 1, 3, 'muito legal');
+INSERT INTO public.comments VALUES (2, 28, 3, 'muito legal e doidao');
+INSERT INTO public.comments VALUES (3, 28, 1, 'muito legal e doidao');
+INSERT INTO public.comments VALUES (4, 28, 1, 'kkk');
+INSERT INTO public.comments VALUES (5, 28, 1, '''asd''');
+INSERT INTO public.comments VALUES (6, 28, 1, 'testando');
+INSERT INTO public.comments VALUES (7, 28, 1, 'fsd');
+INSERT INTO public.comments VALUES (8, 28, 1, 'nb');
 
 
 --
@@ -351,13 +359,12 @@ INSERT INTO public.likes VALUES (3, 5, 29);
 INSERT INTO public.likes VALUES (4, 3, 30);
 INSERT INTO public.likes VALUES (5, 3, 30);
 INSERT INTO public.likes VALUES (23, 9, 29);
-INSERT INTO public.likes VALUES (25, 7, 28);
-INSERT INTO public.likes VALUES (26, 9, 28);
-INSERT INTO public.likes VALUES (30, 10, 28);
 INSERT INTO public.likes VALUES (31, 4, 28);
 INSERT INTO public.likes VALUES (32, 6, 28);
-INSERT INTO public.likes VALUES (33, 8, 28);
-INSERT INTO public.likes VALUES (34, 3, 28);
+INSERT INTO public.likes VALUES (40, 7, 28);
+INSERT INTO public.likes VALUES (42, 9, 28);
+INSERT INTO public.likes VALUES (44, 8, 28);
+INSERT INTO public.likes VALUES (45, 1, 28);
 
 
 --
@@ -380,7 +387,7 @@ INSERT INTO public.posts VALUES (10, 28, 'Link tpo', 'https://www.estadao.com.br
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (36, 28, '9322fd1a-da85-4c9e-95a2-5c9634f5246a', '14:57:45.429279');
+INSERT INTO public.sessions VALUES (37, 28, '1a4a0dd1-6fb8-40e8-b676-c599378a55e4', '13:47:30.337245');
 
 
 --
@@ -397,10 +404,10 @@ INSERT INTO public.users VALUES (31, 'danniel7@gmail.com', 'danniel7', 'https://
 
 
 --
--- Name: follows_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.follows_id_seq', 1, false);
+SELECT pg_catalog.setval('public.comments_id_seq', 8, true);
 
 
 --
@@ -421,7 +428,7 @@ SELECT pg_catalog.setval('public.hashtags_id_seq', 3, true);
 -- Name: likes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.likes_id_seq', 34, true);
+SELECT pg_catalog.setval('public.likes_id_seq', 45, true);
 
 
 --
@@ -442,7 +449,7 @@ SELECT pg_catalog.setval('public.posts_user_id_seq', 1, false);
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 36, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 37, true);
 
 
 --
@@ -453,11 +460,11 @@ SELECT pg_catalog.setval('public.users_id_seq', 31, true);
 
 
 --
--- Name: follows follows_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.follows
-    ADD CONSTRAINT follows_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -549,19 +556,19 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: follows follows_followed_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comments comments_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.follows
-    ADD CONSTRAINT follows_followed_fkey FOREIGN KEY (followed) REFERENCES public.users(id);
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id);
 
 
 --
--- Name: follows follows_follower_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.follows
-    ADD CONSTRAINT follows_follower_fkey FOREIGN KEY (follower) REFERENCES public.users(id);
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
