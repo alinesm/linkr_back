@@ -28,6 +28,13 @@ export async function findFollow(followerId,followedId){
     `,[followerId,followedId])
 }
 
+export async function findFollower(followerId){
+    return db.query(`
+        Select * FROM follows
+        Where follower = $1
+    `,[followerId])
+}
+
 export async function findUserById(id){
     return db.query(`
         SELECT * FROM users
